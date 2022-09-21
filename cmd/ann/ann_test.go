@@ -6,8 +6,8 @@ import (
 	"github.com/jessemolina/lab-go-nnfs/cmd/ann"
 )
 
-
 // TODO write table driven testing - create variations of n to test against
+
 var n = ann.Neuron{[]float64{1, 2, 3},2}
 
 // test (*Neuron).Predict()
@@ -19,4 +19,14 @@ func TestPredict(t *testing.T) {
 	}
 }
 
-// TODO test NewRandonNeurdon(d int)
+// test NewRandonNeurdon(d int)
+func TestNewRandomNeuron(t *testing.T) {
+	d := 3
+	n := ann.NewRandomNeuron(d)
+	results := len(n.Weights)
+	expected := d
+
+	if results != expected {
+		t.Errorf("TestNewRandomNeuron\nexpected:%d\nresults:%d\n", expected, results)
+	}
+}

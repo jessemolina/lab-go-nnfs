@@ -20,7 +20,7 @@ func (n *Neuron) Predict(x []float64) []float64 {
 // create a neuron with zero bias and random weights in d dimmension
 func NewRandomNeuron(d int) Neuron {
 	var w []float64
-	for i := 0; i < d; i++{
+	for i := 0; i < d; i++ {
 		w = append(w, rand.Float64())
 	}
 	return Neuron{w, 0}
