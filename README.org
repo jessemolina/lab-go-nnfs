@@ -1,1 +1,7 @@
-#+title: NNFS with Go
+#+title: Neural Networks From Scratch with Go
+
+This project is an exercise aimed at learning about neural networks and how to build them using Go.
+
+* Resources
+- https://github.com/Sentdex/nnfs
+- https://github.com/garden-io/mlem
