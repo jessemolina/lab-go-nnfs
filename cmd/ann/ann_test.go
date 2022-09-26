@@ -64,7 +64,7 @@ func TestNewRandomLayer(t *testing.T) {
 
 // test (*Neuron).Predict()
 func TestPredict(t *testing.T) {
-	results := n.Predict(x)
+	results := l.Neurons[0].Predict(x)
 	expected := []float64{4.8}
 	if results[0] != expected[0] {
 		t.Errorf("TestPredict\nexpected:%f\nresults:%f\n", expected, results)
