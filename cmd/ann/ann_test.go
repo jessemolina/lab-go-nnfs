@@ -23,12 +23,13 @@ var w = [][]float64{
 // bias - 3 weight biases
 var b = []float64{2, 3, 0.5}
 
-// neuron - 4 inputs features
-var n = ann.Neuron{w[0], b[0]}
-
 // layer - 3 output neurons
 var l = ann.Layer{
-	Neurons: make([]ann.Neuron, len(w)),
+	Neurons: []ann.Neuron{
+		{w[0], b[0]},
+		{w[1], b[1]},
+		{w[2], b[2]},
+	},
 }
 
 // ================================================================
