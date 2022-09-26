@@ -28,7 +28,7 @@ var n = ann.Neuron{w[0], b[0]}
 
 // layer - 3 output neurons
 var l = ann.Layer{
-	Neurons: make([]*ann.Neuron, len(w)),
+	Neurons: make([]ann.Neuron, len(w)),
 }
 
 // ================================================================
@@ -45,7 +45,17 @@ func TestNewRandomNeuron(t *testing.T) {
 	}
 }
 
-// TODO test NewRandomLayer(outputs int)
+// test NewRandomLayer(outputs int)
+func TestNewRandomLayer(t *testing.T) {
+	inputs := len(x) // number of input features
+	outputs := len(w) // number of output neurons
+	l := ann.NewRandomLayer(inputs, outputs)
+	// number of weights should match number if inputs; number of neurons should match outputs
+	expected := inputs == len(l.Neurons[0].Weights) && outputs == len(l.Neurons)
+	if expected != true {
+		t.Errorf("TestNewRandomLayer\nexpected:%v\nresults:%v\n", true, expected)
+	}
+}
 
 // ================================================================
 // TEST METHODS
