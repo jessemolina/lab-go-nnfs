@@ -2,6 +2,8 @@ package ann
 
 import "math/rand"
 
+// TODO consider using pointer semantics - when to pass by value vs pass by address
+
 // ================================================================
 // FUNCTIONS
 
@@ -15,11 +17,13 @@ func NewRandomNeuron(inputs int) Neuron {
 	return Neuron{w, 0}
 }
 
-// TODO create a random layer
 // num of nuerons, num of dimmensions (len of inputs)
-func NewRandomLayer(outputs int) Layer {
-	neurons := make([]*Neuron, outputs)
-	return Layer{neurons}
+func NewRandomLayer(inputs int, outputs int) Layer {
+	ns := make([]Neuron, outputs)
+	for i := 0; i < outputs; i++ {
+		ns[i] = NewRandomNeuron(inputs)
+	}
+	return Layer{ns}
 }
 
 // ================================================================
@@ -45,5 +49,5 @@ func (n *Neuron) Predict(x []float64) []float64 {
 // TYPES - Layer
 
 type Layer struct {
-	Neurons []*Neuron
+	Neurons []Neuron
 }
