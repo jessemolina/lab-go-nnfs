@@ -1,6 +1,8 @@
 package ann
 
-import "math/rand"
+import (
+	"math/rand"
+)
 
 // TODO consider using pointer semantics - when to pass by value vs pass by address
 
@@ -44,10 +46,20 @@ func (n *Neuron) Predict(x []float64) []float64 {
 	return []float64{z + n.Bias}
 }
 
-
 // ================================================================
 // TYPES - Layer
 
 type Layer struct {
 	Neurons []Neuron
+}
+
+// TODO predicts output for neuron layer
+func (l *Layer) Predict(x []float64) []float64 {
+	y := []float64{}
+	for _, n := range l.Neurons {
+		z := n.Predict(x)[0]
+		y = append(y, z)
+	}
+
+	return y
 }
