@@ -1,6 +1,7 @@
 package ann_test
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/jessemolina/lab-go-nnfs/cmd/ann"
@@ -59,14 +60,25 @@ func TestNewRandomLayer(t *testing.T) {
 }
 
 // ================================================================
-// TEST METHODS
-
+// TEST METHODS - Neuron
 
 // test (*Neuron).Predict()
-func TestPredict(t *testing.T) {
+func TestNeuronPredict(t *testing.T) {
 	results := l.Neurons[0].Predict(x)
 	expected := []float64{4.8}
 	if results[0] != expected[0] {
+		t.Errorf("TestPredict\nexpected:%f\nresults:%f\n", expected, results)
+	}
+}
+
+// ================================================================
+// TEST METHODS - Layer
+
+// test (*Layer).Predict()
+func TestLayerPredict(t *testing.T) {
+	results := l.Predict(x)
+	expected := []float64{4.8, 1.21, 2.385}
+	if !reflect.DeepEqual(results, expected){
 		t.Errorf("TestPredict\nexpected:%f\nresults:%f\n", expected, results)
 	}
 }
