@@ -53,7 +53,7 @@ type Layer struct {
 	Neurons []Neuron
 }
 
-// TODO predicts output for neuron layer
+// predicts output for neuron layer
 func (l *Layer) Predict(x []float64) []float64 {
 	y := []float64{}
 	for _, n := range l.Neurons {
