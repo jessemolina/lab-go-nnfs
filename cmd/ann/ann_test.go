@@ -11,8 +11,12 @@ import (
 // TEST VARIABLES
 // TODO write table driven testing - create variations of n to test against
 
-// inputs - 4 input features
-var x = []float64{1.0, 2.0, 3.0, 2.5}
+// inputs - 4 input features, per vector in matrix
+var x = [][]float64{
+	{1.0, 2.0, 3.0, 2.5},
+	{2.0, 5.0, -1.0, 2.0},
+	{-1.5, 2.7, 3.3, -0.8},
+}
 
 // weights - 3 output neurons
 var w = [][]float64{
@@ -36,22 +40,28 @@ var l = ann.Layer{
 // ================================================================
 // TEST FUNCTIONS
 
-// test NewRandonNeuron(d int)
+// test NewRandonNeuron(d int) Neuron
+// create a neuron with len(x[0]) inputs
+// len(n.Weights) should match the number of input features (x)
+// if size of weights array != size of input array
 func TestNewRandomNeuron(t *testing.T) {
-	n := ann.NewRandomNeuron(len(x))
+	n := ann.NewRandomNeuron(len(x[0]))
 	results := len(n.Weights)
-	expected := len(x)
+	expected := len(x[0])
 
 	if results != expected {
 		t.Errorf("TestNewRandomNeuron\nexpected:%d\nresults:%d\n", expected, results)
 	}
 }
 
-// test NewRandomLayer(outputs int)
+// test NewRandomLayer(outputs int) Layer
+// number of output is the number of neurons expectedj
+// the number of input features (x) should match the number of weight arrays (w{})
 func TestNewRandomLayer(t *testing.T) {
-	inputs := len(x) // number of input features
-	outputs := len(w) // number of output neurons
+	inputs := len(x[0])
+	outputs := len(w)
 	l := ann.NewRandomLayer(inputs, outputs)
+
 	// number of weights should match number if inputs; number of neurons should match outputs
 	expected := inputs == len(l.Neurons[0].Weights) && outputs == len(l.Neurons)
 	if expected != true {
@@ -62,9 +72,9 @@ func TestNewRandomLayer(t *testing.T) {
 // ================================================================
 // TEST METHODS - Neuron
 
-// test (*Neuron).Predict()
+// test (*Neuron).Predict(x []float64) []float64
 func TestNeuronPredict(t *testing.T) {
-	results := l.Neurons[0].Predict(x)
+	results := l.Neurons[0].Predict(x[0])
 	expected := []float64{4.8}
 	if results[0] != expected[0] {
 		t.Errorf("TestPredict\nexpected:%f\nresults:%f\n", expected, results)
@@ -76,7 +86,7 @@ func TestNeuronPredict(t *testing.T) {
 
 // test (*Layer).Predict()
 func TestLayerPredict(t *testing.T) {
-	results := l.Predict(x)
+	results := l.Predict(x[0])
 	expected := []float64{4.8, 1.21, 2.385}
 	if !reflect.DeepEqual(results, expected){
 		t.Errorf("TestPredict\nexpected:%f\nresults:%f\n", expected, results)
